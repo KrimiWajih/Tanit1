@@ -4,7 +4,7 @@ const UserSchema = new mongoose.Schema({
  email : {type : String , required:true},
  phone :{type : Number , required : true},
  password :{type : String ,required : true},
- role :{type : String , default : "user" ,enum : ["companyadmin" ,"user"]},
+ role :{type : String , default : "user"},
  status :{type : String  , default :"unverified" , enum : ["verified" ,"unverified"]},
  address : {type :String , required : true},
  skills : [{type : String , default :""}],

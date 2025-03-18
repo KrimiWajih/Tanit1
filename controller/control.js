@@ -186,6 +186,45 @@ exports.signupcompany = async (req, res) => {
   } catch (error) {}
 };
 
+
+exports.singin = async (req,res) =>{
+  const {email ,password} = req.body ;
+  console.log(req.body)
+  try {
+    let UserFound = await Users.findOne({email}) || await Company.findOne({email})
+    console.log(UserFound)
+    if(!UserFound) { 
+      
+     
+     
+         
+            res.status(400).send({ Msg: "User not found" });
+          
+    }else{
+      
+      const match = bcrypt.compareSync(password , UserFound.password)
+      if(!match){
+        res.status(500).send({Msg : "Wrong Password"});
+      }else{
+        const secretkey = "abc123";
+        const token = jwt.sign(
+          { id: UserFound._id, name: UserFound.name },
+          secretkey,
+          {
+            expiresIn: "1d",
+          }
+        );
+        res.cookie("token",token,{httpOnly : true , maxAge : 60*60*24*7*1000}) 
+        res
+          .status(200)
+          .send({ Msg: "Login Successful", User: UserFound, token });
+      }
+    }
+  } catch (error) {
+    res.status(500).send({ Msg: "Failed to login" });
+  }
+}
+
 exports.signinuser = async (req, res) => {
   const { email, password } = req.body;
   try {

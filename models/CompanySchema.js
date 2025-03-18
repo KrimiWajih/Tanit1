@@ -5,9 +5,10 @@ const CompanySchema = new mongoose.Schema({
   phone: { type: Number, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
+  role :{type : String , default : "companyadmin"},
   status :{type : String  , default :"unverified" , enum : ["verified" ,"unverified"]},
-  services: [{ type: String, required: true }],
-  links: [{ type: String, required: true }],
+  services: [{ type: String}],
+  links: [{ type: String }],
   listjobs: [{ type: mongoose.Types.ObjectId, ref: "Jobs" }],
 });
 

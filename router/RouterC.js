@@ -18,6 +18,7 @@ const {
   getjobdata,
   getCurrent,
   logout,
+  singin,
 } = require("../controller/control");
 const { signupvalidation, validation } = require("../middleware/verif");
 const { isauth } = require("../middleware/isAuth");
@@ -29,12 +30,14 @@ const CRouter = express.Router();
 
 // User routes
 CRouter.post("/signupuser", signupvalidation, validation, signupuser);
-CRouter.post("/signin", signupvalidation, validation, signinuser);
+CRouter.post("/signinU", signupvalidation, validation, signinuser);
 CRouter.put("/updateuser", isauth, updateOneUser);
 CRouter.get("/verifyU/:token", verifyEmailU);
 CRouter.delete("/deletejobu", isauth, deletejobU);
 CRouter.post("/applytojob", isauth, applytojob);
-CRouter.get("/getcurrentU", isauth, getCurrent);
+CRouter.get("/getcurrent", isauth, getCurrent);
+CRouter.post("/signin",signupvalidation, validation,singin);
+
 
 // Public routes
 CRouter.get("/userdata", getuserdata);
@@ -48,7 +51,7 @@ CRouter.put("/updatecompany", isauthC, updateOneCompany);
 CRouter.get("/verifyC/:token", verifyEmailC);
 CRouter.delete("/deletejob", isauthC, deletejobC);
 CRouter.put("/updatejobc", isauthC, updatejobC);
-CRouter.get("/getcurrentC", isauthC, getCurrent);
+
 CRouter.post("/addjob", isauthC, addjob);
 
 CRouter.post("/logout",logout);
